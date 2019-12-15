@@ -9,10 +9,19 @@ public class ThemeData implements Serializable {
     private String addr;
     private String tel;
     private String overView;
-    private long mapX;
-    private long mapY;
+    private String homepage;
+    private double mapX;
+    private double mapY;
 
     private Integer contentsID;
+
+    public String getHomepage() {
+        return homepage;
+    }
+
+    public void setHomepage(String homepage) {
+        this.homepage = homepage;
+    }
 
     public Integer getContentsID() {
         return contentsID;
@@ -30,19 +39,19 @@ public class ThemeData implements Serializable {
         this.tel = tel;
     }
 
-    public long getMapX() {
+    public double getMapX() {
         return mapX;
     }
 
-    public void setMapX(long mapX) {
+    public void setMapX(double mapX) {
         this.mapX = mapX;
     }
 
-    public long getMapY() {
+    public double getMapY() {
         return mapY;
     }
 
-    public void setMapY(long mapY) {
+    public void setMapY(double mapY) {
         this.mapY = mapY;
     }
 

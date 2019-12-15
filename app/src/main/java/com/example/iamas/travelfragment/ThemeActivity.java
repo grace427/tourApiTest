@@ -30,6 +30,8 @@ import java.util.ArrayList;
 
 public class ThemeActivity extends AppCompatActivity implements TabLayout.BaseOnTabSelectedListener, ViewPager.OnPageChangeListener {
 
+    final static String TAG = "ThemeActivity";
+
     private EditText edt_search;
     private Button button;
 
@@ -100,6 +102,8 @@ public class ThemeActivity extends AppCompatActivity implements TabLayout.BaseOn
     public void onTabSelected(TabLayout.Tab tab) {
         if( !isDragged ){
             viewPager.setCurrentItem(tab.getPosition());
+
+            Log.d(TAG, "onTab셀렉티드  : " +String.valueOf(tab.getPosition()));
         }
         isDragged = false;
     }
@@ -127,7 +131,14 @@ public class ThemeActivity extends AppCompatActivity implements TabLayout.BaseOn
 
     @Override
     public void onPageScrollStateChanged(int i) {
-        if( i == ViewPager.SCROLL_STATE_DRAGGING)
-            isDragged = true;
+//        if( i == ViewPager.SCROLL_STATE_DRAGGING)
+//            isDragged = true;
+//    }
+
+         if( i == ViewPager.SCROLL_STATE_SETTLING){
+
+             isDragged = false;
+             Log.d(TAG, "스크롤Stage : "+i);
+         }
     }
 }

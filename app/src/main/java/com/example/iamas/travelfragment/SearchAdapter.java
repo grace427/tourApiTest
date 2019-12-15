@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -128,22 +130,28 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
 
             viewDialog = View.inflate(context, R.layout.dialog_info, null);
 
-            TextView txt_Detail_title = viewDialog.findViewById(R.id.txt_Detail_title);
             TextView txt_Detail_addr = viewDialog.findViewById(R.id.txt_Detail_addr);
             TextView txt_Detail_info = viewDialog.findViewById(R.id.txt_Detail_info);
-
+            TextView txt_Detail_tel = viewDialog.findViewById(R.id.txt_Detail_tel);
+            TextView txt_Detail_homepage = viewDialog.findViewById(R.id.txt_Detail_homepage);
             ImageView img_Datail_info = viewDialog.findViewById(R.id.img_Datail_info);
 
             Glide.with(context).load(themeData.getFirstImage()).override(500, 300).into(img_Datail_info);
 
-
-            txt_Detail_title.setText(themeData.getTitle());
             txt_Detail_addr.setText(themeData.getAddr());
+            txt_Detail_info.setMovementMethod(new ScrollingMovementMethod());
             txt_Detail_info.setText(themeData.getOverView());
+            txt_Detail_tel.setText(themeData.getTel());
+            String homepage = themeData.getHomepage();
+            if(homepage != null){
+                txt_Detail_homepage.setText(homepage.substring(homepage.indexOf("http"), homepage.indexOf("\"", homepage.indexOf("http"))));
+            }else{
+                txt_Detail_homepage.setText(" - ");
+            }
 
             AlertDialog.Builder dialog = new AlertDialog.Builder(context);
 
-            dialog.setTitle(" 정보");
+            dialog.setTitle(themeData.getTitle());
             dialog.setView(viewDialog); // 이미지가 들어감
 
             dialog.setPositiveButton("닫기", null);
@@ -175,19 +183,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyViewHold
                             JSONObject parse_items = (JSONObject) parse_body.get("items");
                             JSONObject parse_itemlist = (JSONObject) parse_items.get("item");
 
-                            //list.removeAll(list);
-
-                            // detailThemeData = null;
                             detailThemeData.setFirstImage(parse_itemlist.getString("firstimage"));
                             detailThemeData.setTitle(parse_itemlist.getString("title"));
                             detailThemeData.setAddr(parse_itemlist.getString("addr1"));
                             detailThemeData.setOverView(parse_itemlist.getString("overview"));
-
-                            //Toast.makeText(getActivity(), "봐야됨 "+ parse_itemlist.getString("addr1"), Toast.LENGTH_SHORT).show();
-
-                            //list.add(detailThemeData);
-
-                            // Log.d(TAG, " Two frg : "+detailThemeData.getTitle());
+                            detailThemeData.setTel(parse_itemlist.getString("tel"));
+                            detailThemeData.setMapX(parse_itemlist.getDouble("mapx"));
+                            detailThemeData.setMapY(parse_itemlist.getDouble("mapy"));
+                            detailThemeData.setHomepage(parse_itemlist.getString("homepage"));
 
                         } catch (JSONException e) {
                             e.printStackTrace();
