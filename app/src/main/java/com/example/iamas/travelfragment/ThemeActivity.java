@@ -41,9 +41,6 @@ public class ThemeActivity extends AppCompatActivity implements TabLayout.BaseOn
 
     boolean isDragged;
 
-    static final String KEY = "OEZDFxQGYkA8crUzSlj51nwQQb9Jh78Y5UWvaW5gXccZ5t2ttRXNjcdXjJJ8FsHlriUWu%2B%2FVhFfuI32FbuMhTA%3D%3D";
-    static final String appName = "Zella";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

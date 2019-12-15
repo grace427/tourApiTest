@@ -1,6 +1,8 @@
 package com.example.iamas.travelfragment;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -155,6 +157,14 @@ public class SearchActivity extends AppCompatActivity {
                                 }
 
                                 recyclerView.setAdapter(adapter);
+                            } catch (ClassCastException e1) {
+                                e1.printStackTrace();
+                                final AlertDialog.Builder noSearchDlg = new AlertDialog.Builder(SearchActivity.this);
+                                noSearchDlg.setTitle("찾을 수 없음");
+                                noSearchDlg.setMessage("입력하신 문자를 찾을 수 없습니다.\n 다시 입력해 주세욧.");
+                                noSearchDlg.setPositiveButton("확인", null);
+                                noSearchDlg.show();
+
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
